@@ -38,7 +38,7 @@ export default {
     },
     proxy: {
         "/api": {
-            "target": "http://218.206.237.209:8088/",
+            "target": "http://127.0.0.1:8038/",
             "changeOrigin": true,
             "pathRewrite": { "^/api": "" }
         },
@@ -46,16 +46,6 @@ export default {
             "target": "http://127.0.0.1:8888/",
             "changeOrigin": true,
             "pathRewrite": { "^/host": "" }
-        },
-        "/local": {
-            "target": "http://10.168.1.200:8080/",
-            "changeOrigin": true,
-            "pathRewrite": { "^/local": "" }
-        },
-        "/lang": {
-            "target": "http://10.168.1.210:8080/",
-            "changeOrigin": true,
-            "pathRewrite": { "^/lang": "" }
         }
     }
 }

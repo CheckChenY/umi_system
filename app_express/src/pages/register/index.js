@@ -1,11 +1,10 @@
 // import { useEffect } from 'react';
-import { Input, Button, Form ,message} from 'antd';
+import { Input, Button, Form } from 'antd';
 // import { loginName } from '@platformConfig';
 // import { copyright, copytop } from '@platformConfig';
-import { LoginIn } from '@api/login';
+import { RegisterIn } from '@api/login';
 // import router from 'umi/router';
 // import PingScreen from './ping';
-import router from 'umi/router';
 
 import styles from './index.less';
 
@@ -27,14 +26,10 @@ const tailLayout = {
 const LoginPage = () => {
 
     const onFinish = (values) => {
+        console.log('Success:', values);
 
-        LoginIn(values).then(res=>{
-            if(res.code === 0){
-                router.push('/');
-            }else{
-                console.log(res);
-                message.warning(res.msg);
-            }
+        RegisterIn(values).then(res=>{
+            console.log(res);
         })
 
     };
@@ -53,7 +48,7 @@ const LoginPage = () => {
                         rules={[
                             {
                                 required: true,
-                                message: '请输入用户名',
+                                message: 'Please input your username!',
                             },
                         ]}
                     >
@@ -61,12 +56,12 @@ const LoginPage = () => {
                     </Form.Item>
 
                     <Form.Item
-                        label="密码"
-                        name="password"
+                        label="年龄"
+                        name="age"
                         rules={[
                             {
                                 required: true,
-                                message: '请填写密码“admin”',
+                                message: 'Please input your password!',
                             },
                         ]}
                     >
@@ -75,7 +70,7 @@ const LoginPage = () => {
 
                     <Form.Item {...tailLayout}>
                         <Button type="primary" htmlType="submit">
-                            登录
+                            Submit
                         </Button>
                     </Form.Item>
                 </Form>

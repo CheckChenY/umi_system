@@ -5,10 +5,17 @@ import request from '@/utils/request'
  * @method getAllPermission
  * @return {[type]}         [description]
  */
+export const RegisterIn = (obj) => {
+    return request({
+        url: '/user/addUser',
+        method: 'post',
+        data: obj
+    })
+}
 export const LoginIn = (obj) => {
     return request({
-        url: '/host/',
-        method: 'get',
-        params: obj
+        url: '/user/loginIn',
+        method: 'post',
+        data: obj
     })
 }

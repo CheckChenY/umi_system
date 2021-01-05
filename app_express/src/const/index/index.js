@@ -1,8 +1,16 @@
 export const columns = [
     {
-        title: '搜索条件',
-        dataIndex: 'key',
-        key: 'key',
+        title: '序列',
+        dataIndex: 'id',
+        key: 'id',
+        status:true,
+        render:(text,record,index)=>{
+            return (
+                <span>
+                    {index + 1}
+                </span>
+            )
+        }
     },
     {
         title: '姓名',
@@ -10,18 +18,24 @@ export const columns = [
         key: 'name',
     },
     {
-        title: '年龄',
-        dataIndex: 'age',
-        key: 'age',
+        title: '地址',
+        dataIndex: 'url',
+        key: 'url',
     },
     {
-        title: '住址',
-        dataIndex: 'address',
-        key: 'address',
+        title: '点击数',
+        dataIndex: 'alexa',
+        key: 'alexa',
+    },
+    {
+        title: '国家',
+        dataIndex: 'country',
+        key: 'country',
     },
     {
         title: '操作',
         dataIndex: 'action',
         key: 'action',
+        status:true,
     },
 ];

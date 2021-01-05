@@ -1,5 +1,7 @@
 
-import { DataList,MenuList,SearchList } from '@api/index';
+import { DataList,MenuList,SearchList,
+    // AddList 
+} from '@api/index';
 
 export default {
     namespace: 'list',
@@ -8,7 +10,11 @@ export default {
         visble: false,
         title:'',
         loading:false,
-        menulist:[]
+        menulist:[],
+        item_list:[],
+        collapsed:false,
+        datalist:{},
+        loading:false
     },
 
     effects: {
@@ -30,15 +36,11 @@ export default {
                 }
             })
         },
-        *SearchList({payload},{call,put}){
+        //增
+        *AddList({payload},{call,put}){
             //请求数据接口
-            let arr = [];
-            const response = yield call(SearchList,payload);
-            if(payload.name){
-                arr.push(response);
-            }else{
-                arr = response;
-            }
+            // const response = yield call(AddList,payload);
+            const item = yield call(DataList,payload);
             // console.log(menulist);
             //存储数据
             yield put({
@@ -46,7 +48,31 @@ export default {
                 payload:{
                     ...payload,
                     action_type:'DATA_LIST',
-                    datalist:arr,
+                    datalist:item,
+                    loading:false,
+                    visble:false
+                    // current:payload.current,
+                }
+            })
+        },
+        *SearchList({payload},{call,put}){
+            //请求数据接口
+            let arr = [];
+            const response = yield call(SearchList,payload);
+            // if(payload.name){
+            //     arr.push(response);
+            // }else{
+            //     arr = response;
+            // }
+            // console.log(menulist);
+            //存储数据
+            yield put({
+                type:'save',
+                payload:{
+                    ...payload,
+                    action_type:'DATA_LIST',
+                    datalist:response,
+                    loading:false,
                 }
             })
         },
@@ -60,6 +86,7 @@ export default {
                         ...state,
                         visble: !state.visble,
                         title:action.title,
+                        item_list:action.item_list
                     };
                 case 'update':
                     return {
@@ -67,6 +94,12 @@ export default {
                         visble: !state.visble,
                         data:state.data,
                         title:action.title,
+                        // item:action.item
+                    };
+                case 'menu':
+                    return {
+                        ...state,
+                        collapsed: !state.collapsed,
                     };
                 default:
                     break;
@@ -80,6 +113,18 @@ export default {
                     return {
                         ...state,
                         ...payload,
+                    }
+                
+                default :
+                    break;
+            }
+        },
+        menu(state,action){
+            switch (action.action_type){
+                case 'MENU_LIST' :
+                    return {
+                        ...state,
+                        collapsed : !state.collapsed,
                     }
                 
                 default :

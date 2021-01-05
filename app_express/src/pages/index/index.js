@@ -9,12 +9,14 @@ const IndexScreen = ({list,dispatch}) => {
         dispatch({
             type:'list/DataList',
             payload:{
-                loading:true
+                loading:true,
+                page:1,
+                size:8
             }
         })
     },[])
 
-    columns[4].render = (text, record) => {
+    columns[5].render = (text, record) => {
         return (
             <span>
                 <Space>
@@ -27,7 +29,7 @@ const IndexScreen = ({list,dispatch}) => {
         )
     }
 
-    const onChangePlus = () => {
+    const onChangePlus = (item) => {
         dispatch({
             type: 'list/datalist',
             item: 'visble',
@@ -40,6 +42,7 @@ const IndexScreen = ({list,dispatch}) => {
             type: 'list/datalist',
             item: 'visble',
             title:'编辑',
+            item_list:res
         })
     }
 
@@ -53,11 +56,31 @@ const IndexScreen = ({list,dispatch}) => {
         dispatch({
             type:'list/SearchList',
             payload:{
-                name:res
+                name:res,
+                page:1,
+                size:8,
+                loading:true
             }
         })
     }
-    console.log(list.datalist);
+
+    const changePage = (res) => {
+        
+        dispatch({
+            type:'list/DataList',
+            payload:{
+                loading:true,
+                page:res,
+                size:8
+            }
+        })
+    }
+
+    //显示总数
+    const showTotal = (total) => {
+        return `共 ${total} 条`;
+    }
+
     return (
         <div>
             <Space align="center" style={{ marginBottom: 16 }}>
@@ -69,7 +92,19 @@ const IndexScreen = ({list,dispatch}) => {
                 >
                     新增</Button>
             </Space>
-            <Table dataSource={list.datalist} columns={columns} />
+            <Table rowKey="id" 
+                dataSource={list.datalist ? list.datalist.data : []} 
+                columns={columns}
+                loading={list.loading}
+                
+                pagination={{  // 分页
+                    showSizeChanger: false,
+                    current: list.datalist.page,
+                    total: list.datalist.total,
+                    onChange: changePage,
+                    showTotal: (item)=>showTotal(item)
+                }}
+             />
             
             <DrawerScreen />
         </div>

@@ -7,15 +7,15 @@ import request from '@/utils/request'
  */
 export const DataList = (obj) => {
     return request({
-        url: '/listuser',
+        url: '/index/listuser',
         method: 'get',
-        // params: obj
+        params: obj
     })
 }
 
 export const MenuList = (obj) => {
     return request({
-        url: '/menulist',
+        url: '/index/menulist',
         method: 'get',
         // params: obj
     })
@@ -31,7 +31,7 @@ export const AddList = (obj) => {
 
 export const SearchList = (obj) => {
     return request({
-        url: '/search',
+        url: '/index/search',
         method: 'get',
         params: obj
     })

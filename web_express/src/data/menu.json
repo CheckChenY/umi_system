@@ -12,20 +12,20 @@
         "name": "操作",
         "icon":"user",
         "children": [{
-            "id": 2,
-            "key":1,
+            "id": 0,
+            "key":2,
             "name": "分析页",
             "router":"/index/action",
             "icon":"user"
         },{
-            "id": 3,
-            "key":1,
+            "id": 1,
+            "key":3,
             "name": "监控页",
             "router":"/index/monitor",
             "icon":"user"
         },{
-            "id": 4,
-            "key":1,
+            "id": 2,
+            "key":4,
             "name": "工作台",
             "router":"/index/analysis",
             "icon":"user"

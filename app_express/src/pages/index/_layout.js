@@ -1,42 +1,44 @@
-import React,{ Component } from 'react';
+import { useState } from 'react';
 import { connect } from 'dva';
-import { Layout, Menu, Icon,Button } from 'antd';
+import { Layout,Button } from 'antd';
 import MenuSide from '@com/menu';
 import {
-  AppstoreOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-  PieChartOutlined,
-  DesktopOutlined,
-  ContainerOutlined,
-  MailOutlined,
 } from '@ant-design/icons';
 // Header, Footer, Sider, Content组件在Layout组件模块下
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Content } = Layout;
 
-const SubMenu = Menu.SubMenu;
-const BasicLayout = (list) => {
+// const SubMenu = Menu.SubMenu;
+const BasicLayout = ({...list}) => {
+    const [collapsed,setCollapsed] = useState(false);
+    const toggle = () => {
+        list.dispatch({
+            type:'list/menu',
+            action_type:'MENU_LIST',
+        })
+        setCollapsed(!collapsed);
+    }
     return (
         <Layout>
-            <Header>
-                dfgsdfsddddddddddddd
-            </Header>
             <Layout>
                 <MenuSide />
-                <Content style={{ margin: '10px 10px 0',marginLeft:210, }}>
-                    <div style={{ padding:5,background: '#fff', minHeight: 360 }}>
+                <Content>
+                    <Header style={{background: '#fff',paddingLeft:5}}>
+                        <Button onClick={toggle} icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />} />
+                    </Header>
+                    <div style={{ padding:10 }}>
                         {list.children}
                     </div>
+                    {/* <Footer style={{  position: 'fixed',bottom:0,textAlign: 'center', width: '100%',height:50,backgroundColor:'blue' }}>Footer</Footer> */}
                 </Content>
-                <Footer style={{  position: 'fixed',bottom:0,left:200,textAlign: 'center', width: '100%' }}>Footer</Footer>
             </Layout>
         </Layout>
     )
 }
 
-export default connect(({list,dispatch})=>{
+export default connect(list=>{
     return {
-        list,
-        dispatch
+        list
     }
 })(BasicLayout);

@@ -1,5 +1,5 @@
 
-import { DataList,MenuList,SearchList,
+import { DataList,MenuList,SearchList
     // AddList 
 } from '@api/index';
 
@@ -13,8 +13,11 @@ export default {
         menulist:[],
         item_list:[],
         collapsed:false,
-        datalist:{},
-        loading:false
+        datalist:{
+            page:1
+        },
+        loading:false,
+        weather_data:{},
     },
 
     effects: {
@@ -32,6 +35,25 @@ export default {
                     datalist:response,
                     menulist:menulist,
                     loading:false,
+                    // current:payload.current,
+                }
+            })
+        },
+        
+        *MenuList({payload},{call,put}){
+            //请求数据接口
+            const menulist = yield call(MenuList,payload);
+            // const weather = yield call(Weather,payload);
+            // console.log(menulist);
+            //存储数据
+            yield put({
+                type:'save',
+                payload:{
+                    ...payload,
+                    action_type:'MENU_LIST_DATA',
+                    // weather_data:weather,
+                    menulist:menulist,
+                    // loading:false,
                     // current:payload.current,
                 }
             })
@@ -59,12 +81,6 @@ export default {
             //请求数据接口
             let arr = [];
             const response = yield call(SearchList,payload);
-            // if(payload.name){
-            //     arr.push(response);
-            // }else{
-            //     arr = response;
-            // }
-            // console.log(menulist);
             //存储数据
             yield put({
                 type:'save',
@@ -110,6 +126,11 @@ export default {
             { action_type } = payload;
             switch (action_type){
                 case 'DATA_LIST' :
+                    return {
+                        ...state,
+                        ...payload,
+                    }
+                case 'MENU_LIST_DATA' :
                     return {
                         ...state,
                         ...payload,

@@ -98,8 +98,8 @@ const IndexScreen = ({list,dispatch}) => {
                 loading={list.loading}
                 
                 pagination={{  // 分页
-                    showSizeChanger: false,
-                    current: list.datalist.page,
+                    // showSizeChanger: false,
+                    current: Number(list.datalist.page),
                     total: list.datalist.total,
                     onChange: changePage,
                     showTotal: (item)=>showTotal(item)

@@ -46,6 +46,11 @@ export default {
             "target": "http://127.0.0.1:8888/",
             "changeOrigin": true,
             "pathRewrite": { "^/host": "" }
+        },
+        "/weather": {
+            "target": "https://v0.yiketianqi.com/",
+            "changeOrigin": true,
+            "pathRewrite": { "^/host": "" }
         }
     }
 }

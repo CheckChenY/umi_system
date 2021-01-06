@@ -21,7 +21,7 @@ router.get('/listuser', function (req, res) {
     // console.log(req.query.size);
     const page = req.query.page;
     const size = req.query.size;
-    const params = [(parseInt(page) - 1) * parseInt(size), parseInt(size)]
+    const params = [(parseInt(page) - 1) * parseInt(size), parseInt(size)];
     //查询本地数据库数据
     var sql_total = $sql.index.total;
     var sql = 'SELECT * FROM websites limit ?,?';
@@ -59,7 +59,7 @@ router.get('/search', function (req, res) {
     const name = req.query.name;
     const page = req.query.page;
     const size = req.query.size;
-    const params = [name + '%'];
+    let params = [name + '%'];
     //查询本地数据库数据
     // var sql_total = $sql.index.total;
     // var sql = 'SELECT * FROM websites limit ?,?';
@@ -72,7 +72,14 @@ router.get('/search', function (req, res) {
             console.log('查询数据库失败' + err);
             return;
         }
+        if(name === ''){
+            sql = 'SELECT * FROM websites limit ?,?';
+            params = [(parseInt(page) - 1) * parseInt(size), parseInt(size)];
+        }
 
+        console.log(sql);
+
+        console.log(params);
         conn.query(sql,params,function(err,result){
             if(err){
                 console.log('查询数据库失败' + err);

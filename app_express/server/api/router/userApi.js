@@ -69,7 +69,12 @@ router.post('/loginIn',(req,res)=>{
             }
         })
         const data = result[0];
-        delete data.password
+        delete data.password;
+        
+        res.cookie('userId', params.name, {
+            // path: '/',
+            maxAge: 1000 * 60 * 60 // 设置cookie时间
+        });
         // console.log(result);
         
         res.send(jsonWrite(res,data,10000,1));

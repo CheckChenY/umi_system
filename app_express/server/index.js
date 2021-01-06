@@ -22,6 +22,23 @@ app.all('*', function (req, res, next) {
     next();
 });
 
+
+// app.use(function(req,res,next){
+//     if(req.cookies.userId){
+//         next();
+//     }else{
+//         if(req.originalUrl.indexOf('/user/loginIn') > -1){
+//             next();
+//         }else{
+//             res.json({
+//                 status:'10001',
+//                 msg:'当前未登录',
+//                 result:''
+//             })
+//         }
+//     }
+// })
+
 //后端api路由
 app.use('/user',userApi);
 app.use('/index',indexApi);

@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import until from '@/utils/until'
 
 /**
  *  获取所有的权限
@@ -32,6 +33,14 @@ export const AddList = (obj) => {
 export const SearchList = (obj) => {
     return request({
         url: '/index/search',
+        method: 'get',
+        params: obj
+    })
+}
+
+export const Weather = (obj) => {
+    return until({
+        url: '/api',
         method: 'get',
         params: obj
     })
